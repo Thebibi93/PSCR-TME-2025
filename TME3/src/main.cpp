@@ -210,8 +210,10 @@ int main(int argc, char **argv) {
       thread.join(); // Attendre la fin du thread...
     }
     unordered_map<string, int> um;
-    for (auto &h : hashes){
-        um.merge(h);
+    for (auto &h : hashes) {
+      for (auto &p : h) {
+        um[p.first] += p.second;
+      }
     }
     unique_words = um.size();
     pairs.reserve(unique_words);
