@@ -19,36 +19,36 @@ It is recommended to use a separate directory for each build configuration to av
 ### Debug Build (Default)
 
 1.  **Create and enter a build directory:**
-    ```
+    ```bash
     mkdir build-debug
     cd build-debug
     ```
 
 2.  **Run CMake.** It will default to the Debug configuration.
-    ```
+    ```bash
     cmake ..
     ```
 
 3.  **Run Make.** This compiles the `TME2` executable.
-    ```
+    ```bash
     make
     ```
 
 ### Release Build
 
 1.  **Create and enter a build directory:**
-    ```
+    ```bash
     mkdir build-release
     cd build-release
     ```
 
 2.  **Run CMake, specifying the Release build type:**
-    ```
+    ```bash
     cmake -DCMAKE_BUILD_TYPE=Release ..
     ```
 
 3.  **Run Make.** This compiles the optimized `TME2` executable.
-    ```
+    ```bash
     make
     ```
 
@@ -57,10 +57,8 @@ It is recommended to use a separate directory for each build configuration to av
 The executable `TME2` will be created inside the build directory you chose (`build-debug` or `build-release`).
 
 To run it from within the build directory:
-```
-./TME2 [path/to/textfile] [mode]
+```bash
+./TME2 [path/to/textfile]
 ```
 
 If no filename is given the program will try to read `../WarAndPeace.txt` (one level above the build directory).
-
-If no mode is provided the program will use mode "count".
