@@ -12,8 +12,7 @@ class Pool {
 	std::vector<std::thread> threads;
 public:
 	// create a pool with a queue of given size
-	Pool(int qsize) {/*TODO*/
-	}
+	Pool(int qsize) : queue(qsize){}
 	// start the pool with nbthread workers
 	void start (int nbthread) {
 		/*TODO*/
@@ -24,15 +23,28 @@ public:
 	}
 
 	// submit a job to be executed by the pool
-	void submit (Job * job) { /*TODO*/}
+	void submit (Job * job) {
+		queue.push(job);
+	}
 	
 	// initiate shutdown, wait for threads to finish
-	void stop() { }
+	void stop() {
+		for(int i=0; i<queue.size(); ++i)
+			queue.push({});
+		for(auto &t : threads)
+			t.join();
+	}
 	
 
 private:
 	// worker thread function
-	void worker() { //todo
+	void worker() {
+		Job *j = queue.pop();
+		if (!j){
+			return;
+		}
+		j->run();
+		delete j;
 	}
 };
 
