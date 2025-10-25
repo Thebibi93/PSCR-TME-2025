@@ -63,11 +63,11 @@ int main(int argc, char *argv[]) {
     renderer.renderThreadPerRow(scene, img);
 } else if (opts.mode == "ThreadManual") {
     renderer.renderThreadManual(scene, img, opts.nbthread);
-           /*
 } else if (opts.mode == "PoolPixel") {
     renderer.renderPoolPixel(scene, img, opts.nbthread);
 } else if (opts.mode == "PoolRow") {
     renderer.renderPoolRow(scene, img, opts.nbthread);
+          /*
 } else if (opts.mode == "PoolFunctionalRow") {
     renderer.renderPoolFunctionalRow(scene, img, opts.nbthread);
             */

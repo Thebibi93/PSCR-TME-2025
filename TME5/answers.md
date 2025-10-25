@@ -64,12 +64,8 @@ Implemented `void renderThreadManual(const Scene& scene, Image& img, int nbthrea
 
 mesures
 
-
-Ray tracer starting with output 'spheres.bmp', resolution 2000x2000, spheres 250, mode ThreadManual, threads 4
-Total time 1500ms.
-
-Ray tracer starting with output 'spheres.bmp', resolution 2000x2000, spheres 250, mode ThreadManual, threads 32
-Total time 810ms.
+Ray tracer starting with output 'spheres.bmp', resolution 2000x2000, spheres 250, mode ThreadManual, threads 128
+Total time 593ms.
 
 
 ## With Thread Pool
@@ -90,6 +86,9 @@ Mode "-m PoolPixel" with -n.
 
 mesures
 
+Ray tracer starting with output 'spheres.bmp', resolution 2000x2000, spheres 250, mode PoolPixel, threads 128
+Total time 8456ms.
+
 ### Question 9
 LineJob: derives from Job, captures TODO
 
@@ -99,8 +98,13 @@ Mode "-m PoolRow -n nbthread".
 
 mesures
 
+Ray tracer starting with output 'spheres.bmp', resolution 2000x2000, spheres 250, mode PoolRow, threads 128
+Total time 581ms.
+
 ### Question 10
 Best:
+PoolRow et Thread manual sont équivalent mm si la soluce pool est plus facilement extensible et maintenable on réparti mieux la charge.
+Aussi sans le cache (j'avais inversé x et y au niv accès) ca a qd mm augmenté le temps de 100ms c'est vrm pas négligeable.
 
 ## Bonus
 
