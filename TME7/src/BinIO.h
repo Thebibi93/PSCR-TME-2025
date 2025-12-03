@@ -3,7 +3,9 @@
 
 #include "Graph.h"
 #include <cerrno>
+#include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <fcntl.h>
 #include <iostream>
@@ -61,21 +63,48 @@ Vertex *deserialize(int fd, off_t offset, std::unordered_map<off_t, Vertex *> &o
                     Graph &graph) {
 
   // 1. Tester le map; si présent rendre la valeur.
+  if(offset_to_vertex.contains(offset)){
+    return offset_to_vertex.at(offset);
+  }
+
+  FILE *f = fdopen(fd, "rw");
 
   // 2. Sinon, on doit créer/mettre à jour le noeud dans Graph.
   // Seek à l'offset demandé; lire un header (id, child_count).
 
+  fseek(f, offset, SEEK_SET);
+  size_t *buf = nullptr;
+  int r = read(fd, buf, sizeof(int));
+  if (r <= 0){
+    perror("read");
+  }
+  size_t id = *buf;
+
+  buf = nullptr;
+
+  r = read(fd, buf, sizeof(int));
+  if (r <= 0){
+    perror("read");
+  }
+  size_t child_count = *buf;
+
   // 3. demander à Graph le Vertex correspondant à id (findNode).
+
+  Vertex *v = graph.findNode(id);
+
   // 4. Mettre à jour le map offset->Vertex (avant toute récursion).
+
+  offset_to_vertex[offset] = v;
 
   // 5. en boucle sur child_count,
   // itérer et lire les offsets des enfants (pread recommandé).
   // Pour chaque offset, appeler récursivement deserialize (Attention ça va faire bouger le curseur de fd!)
   // Ajouter les pointeurs vers enfant qui reviennent de la récursion au Vertex en construction.
+  for (int i =0; i<child_count; ++i){
+
+  }
 
   // 6. rendre le Vertex construit.                    
-
-  Vertex *v = nullptr;
 
   return v;
 }
